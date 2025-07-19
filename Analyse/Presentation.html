@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/images/database-icon.png" type="image/png">
+    <title>Projet - Programmation Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Ajout de Font Awesome pour les icônes -->
+    <style>
+        /* Styles généraux */
+        body,
+        html {
+            margin: 0;
+            padding-bottom: 10px;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+            /* Activation du smooth scroll */
+            line-height: 1.6;
+        }
+
+        /* Section d'en-tête */
+        .header {
+            height: 100vh;
+            background-image: url('assets/images/header-presentation.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #f4f4f4;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            /* 5px de décalage vers le bas */
+        }
+
+        .header .text {
+            /* background-color: rgba(0, 0, 0, 0.2); */
+            border-radius: 10px;
+            /* Ajoute des coins arrondis */
+            background: radial-gradient(rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0) 70%);
+            padding: 200px;
+            /* Ajoute un peu de marge intérieure pour que le texte ne soit pas collé aux bords */
+        }
+
+        .scroll-down {
+            color: #2e2e2e;
+        }
+
+        /* CSS */
+        .project {
+            padding: 50px;
+            padding-bottom: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project p {
+            flex: 1;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-right: 20px;
+            text-indent: 20px;
+            /* Ajoute une tabulation de 20px au début de chaque paragraphe */
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .image-container img {
+            height: 100%;
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        figcaption {
+            text-align: center;
+            /* Pour centrer le texte */
+            font-style: italic;
+            /* Pour mettre le texte en italique */
+            font-size: 14px;
+            /* Taille de la police */
+            color: #666;
+            /* Couleur du texte */
+        }
+
+        /* Barre de navigation */
+        nav {
+            background-color: #333;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Footer uniformisé */
+        footer {
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            margin-top: auto;
+            padding: 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .nav-link {
+            color: #4caf50;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: rgba(76, 175, 80, 0.1);
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(76, 175, 80, 0.2);
+            text-decoration: none;
+        }
+        
+        .report-button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .report-button:hover {
+            background-color: #f57c00;
+        }
+        
+        .credit {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .nav-link, .report-button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Styles pour les paragraphes supplémentaires */
+        .additional-paragraphs-container {
+            padding: 50px;
+            padding-top: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            /* Permet aux éléments de passer à la ligne si nécessaire */
+            justify-content: center;
+        }
+
+        .additional-paragraphs {
+            flex-basis: calc(50% - 10px);
+            /* Pour que chaque paragraphe occupe 50% de la largeur du conteneur, moins un espace de 10px */
+            padding: 20px;
+            margin-bottom: 20px;
+            /* Ajout d'un espacement en bas pour séparer les paragraphes verticalement */
+            box-sizing: border-box;
+            /* Inclut le padding et la bordure dans la largeur et la hauteur totales de l'élément */
+        }
+
+        .additional-paragraphs p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            /* Réduit l'espacement entre les paragraphes */
+            text-indent: 20px;
+            /* Ajoute une tabulation de 20px au début de chaque paragraphe */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barre de navigation -->
+    <nav>
+        <a href="Presentation.html"><i class="fas fa-home"></i> Presentation</a>
+        <a href="../Valide_ton_Semestre.php"><i class="fas fa-project-diagram"></i> Projet: Valide ton Semestre</a>
+        <a href="Analyse_datavise.php"><i class="fas fa-chart-line"></i> Datavisualisation</a>
+        <a href="Analyse_forms.php"><i class="fas fa-chart-bar"></i> Analyse Dynamique des Données</a>
+        <a href="../tools/check.html"><i class="fas fa-tools"></i> Tests Système</a>
+    </nav>
+
+    <!-- Section d'en-tête avec image de fond -->
+    <div class="header" id="home">
+        <div class="text">
+            <h1>Mini-Projet</h1>
+            <h2>R4.VCOD.09 Programmation web</h2>
+            <p>
+                Mini-site web permettant de fournir des indicateurs</br>
+                pertinents pour l’interrogation d’un entrepôt de données
+            </p>
+            <a href="#descriptionproject" class="scroll-down">Presentation <i class="fas fa-chevron-down"></i></a>
+        </div>
+    </div>
+
+    <!-- Section de présentation du projet -->
+    <div id="descriptionproject" class="project">
+        <p>
+            Ce mini-site web a été créé dans le cadre du projet de Programmation Web – R4.VCOD.09. </br>
+            Notre objectif est de présenter des indicateurs pertinents pour l'interrogation d'un entrepôt de données
+            implémenté en technologie ROLAP sur MySQL. Nous avons choisi de nous concentrer sur un thème spécifique et
+            de sélectionner des sources de données pertinentes pour illustrer les concepts que nous avons appris pendant
+            le cours. Nous avons également développé ce mini-site en mettant en pratique les compétences acquises en
+            HTML, CSS et PHP.
+            <!-- </br> -->
+            La source de données choisis pour le projet est alimenté par un formulaire permettant aux etudiants de
+            calculer leurs moyennes actuels pour chaque UE de chaque semestre, ainsi que de calculer la note dont ils
+            ont besoin dans les champs non-rempli, s'il y en a un, ou 2 a meme coefficient, pour validé un objectif fixé
+            par l'utilisateur. Ceci est destiné a donner de la visibilité a l'etudiant quand au matiere dont il doit
+            maximiser son apprentissage, ainsi que sur les attentes de l'université. Le formulaire est disponible dans
+            l'onglet "Projet: Valide ton Semestre" du menu. </br>
+            <!-- </br> -->
+            Chaque parametres des calculs réalisés via ce formulaire sont enregistrés et inseré dans la base de données,
+            ainsi que la date a laquelle ils ont eu lieu.</br>
+            <!-- </br> -->
+            Le modele en etoile representant les données analysé permet d'analyser les calculs à travers leurs dates
+            d'execution l'activités du site, et a travers chaque UEs et Semestre pour analyser les besoins de visibilité
+            des utilisateurs, également à travers chaque matieres.</br>
+            <!-- </br> -->
+            Le fait observé est donc une entrée, qui se caracterise par l'objectif fixé par l'utilisateurs, la moyenne
+            obtenu par celui-ci,
+            et si l'utilisateurs a laissé 1 ou 2 champs vide, la ou les notes minimal calculé pour qu'il atteigne son
+            objectif. </br>
+            </br>
+            Tout les indicateur des sites de visualisation sont présentés et mis en contexte sur cette page de
+            présentation.
+        </p>
+        <figure>
+            <img src="assets/images/star-model.png" alt="Project Image">
+            <figcaption>Modele en étoile de l'analyse des données</figcaption>
+        </figure>
+    </div>
+
+    <div class="additional-paragraphs-container">
+        <!-- Paragraphe supplémentaire -->
+        <div class="additional-paragraphs">
+            <p>
+                L'analyse des données est décomposée en 2 pages : <i>"Datavisualisation"</i></br>
+                La première, "Datavisualisation", permet d'observer les données à travers 5 graphiques différents.
+                - L'indicateur de performance permet d'observer l'activité enregistrée par le site, permettant ainsi
+                d'observer très rapidement selon la période s'il y a un besoin particulier en ce moment-même.</br>
+                - Ensuite, le graphique de la distribution des calculs par jour et semestre permet de visualiser la
+                distribution et l'écart entre les calculs, la densité
+                de ceux-ci et les semestres les plus enregistrés. </br>
+                - L'histogramme suivant enregistre les moyennes par UE, permettant d'observer quelles UE présentent les
+                meilleures et les pires moyennes. </br>
+                - Le graphique en secteur permet de chiffrer la sur ou sous-représentation des semestres possiblement
+                observés dans le graphique en point, en proportion et quantité. </br>
+                - Enfin, le dernier graphique permet de visualiser la distribution des calculs via des boxplots pour
+                chaque semestre. On pourra ainsi observer la présence d'individus
+                extrêmes, aberrants, et des différences de dispersion entre les semestres, et entre les deux parcours.
+                </br>
+                </br>
+                À la fin de cette page, nous trouvons également deux tableaux, permettant d'observer avec plus
+                d'exactitude les données, regroupées par semestre et UEs.
+            </p>
+        </div>
+
+        <!-- Paragraphe supplémentaire -->
+        <div class="additional-paragraphs">
+            <p>
+                L'analyse des données est décomposée en 2 pages : <i>"Analyse Dynamique des Données"</i></br>
+                La deuxième page permet à l'utilisateur averti d'observer les données qu'il souhaite via 4
+                formulaires. </br>
+                - Le premier formulaire permet d'observer la proportion des moyennes calculées étant supérieures à
+                l'objectif fixé par l'utilisateur. Cette information
+                est fournie dynamiquement en fonction du semestre choisi pour la visualisation. </br>
+                - Pour ce même semestre sélectionné, le second formulaire permet de choisir une UE associée à ce
+                semestre, et dont des calculs ont été effectués,
+                et donne pour cette UE choisie le nombre de calculs effectués, et la moyenne de toutes les moyennes
+                calculées. </br>
+                - Le 3e formulaire permet d'effectuer une analyse comparative entre 2 semestres choisis, et permet
+                d'observer pour chacun la moyenne.
+                La différence entre les semestres est calculée, et une mise en forme des résultats permet d'observer
+                quel semestre a la moyenne la plus élevée et la plus faible.
+                Cette analyse est destinée à comparer les parcours, VCOD et EMS. </br>
+                - Enfin, un formulaire permet d'observer, pour chaque semestre, la moyenne de chaque matière, leur
+                coefficient, et le nombre de fois qu'elles ont été calculées.
+                La mise en forme de ces données permet d'observer les notes inférieures à 10, en rouge, entre 10 et 15 en
+                orange et en vert au-dessus de 15.
+                Cette analyse permettra de visualiser les matières dont les moyennes sont particulièrement faibles, ce qui
+                exprimerait alors un pessimisme des étudiants concernant leurs
+                projections sur celles-ci. </br>
+            </p>
+        </div>
+
+        <!-- Paragraphe supplémentaire -->
+        <div class="additional-paragraphs">
+            <p>
+                Les requêtes OLAP utilisées sont, par exemple pour l'indicateur de performance du site, référençant le
+                nombre de calculs effectués le jour même par rapport à la veille :
+                <code>
+                        SELECT 
+                            DATE AS Date_Actuelle,
+                            COUNT(*) AS Nombre_Calculs
+                        FROM 
+                            Resultat_Calcul
+                        WHERE 
+                            DATE IN (CURDATE(), DATE_SUB(CURDATE(), INTERVAL 1 DAY))
+                        GROUP BY 
+                            DATE WITH ROLLUP
+                    </code>
+                Ou encore pour les tableaux de données fixes dans la page de Datavisualisation, et sur plusieurs
+                sélections dans la page de résumé dynamique.
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <span>Copyright &copy; Legolas <script>document.write(new Date().getFullYear())</script></span>
+            <a href="Analyse_datavise.php" class="nav-link">📈 Datavisualisation</a>
+            <a href="Analyse_forms.php" class="nav-link">📊 Analyse dynamique</a>
+            <a href="../Valide_ton_Semestre.php" class="nav-link">🧮 Calculateur de notes</a>
+            <a href="../tools/check.html" class="nav-link">🔧 Tests système</a>
+        </div>
+    </footer>
+
+    <!-- Script pour le smooth scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

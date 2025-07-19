@@ -1,0 +1,735 @@
+/**
+ * Styles principaux - Valide ton Semestre
+ * 
+ * Feuille de style pour l'application de calcul de notes
+ * 
+ * @author Legolaswash
+ * @version 2.0
+ * @since 2025-01-11
+ */
+
+/* ====================================================================== */
+/* Variables CSS pour une meilleure maintenabilité                       */
+/* ====================================================================== */
+
+:root {
+    --primary-color: #4caf50;
+    --primary-hover: #45a049;
+    --error-color: #d32f2f;
+    --warning-color: #ff9800;
+    --success-color: #2e7d32;
+    --background-color: #fffff0;
+    --text-color: #333;
+    --border-color: #ccc;
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --border-radius: 4px;
+    --transition-speed: 0.3s;
+    --max-width: 1200px;
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+}
+
+/* ====================================================================== */
+/* Reset et styles de base                                               */
+/* ====================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    width: 100%;
+}
+
+/* ====================================================================== */
+/* En-tête et titre principal                                            */
+/* ====================================================================== */
+
+header {
+    background-color: var(--text-color);
+    color: white;
+    padding: var(--spacing-md);
+    text-align: center;
+    box-shadow: var(--shadow-light);
+}
+
+.Main.Title {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: normal;
+}
+
+/* ====================================================================== */
+/* Formulaires et éléments d'entrée                                      */
+/* ====================================================================== */
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+input[type="number"],
+select,
+textarea {
+    /* width: 100%; */
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+input[type="number"]:invalid,
+input[style*="border-color: red"] {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+.gradeInput,
+.weightInput {
+    margin-bottom: var(--spacing-sm);
+}
+
+.goal {
+    max-width: 200px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: var(--spacing-xs);
+}
+
+small {
+    display: block;
+    margin-top: var(--spacing-xs);
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ====================================================================== */
+/* Boutons                                                               */
+/* ====================================================================== */
+
+button:not(.report-button) {
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed), transform 0.1s;
+    min-height: 44px; /* Accessibilité tactile */
+}
+
+button:not(.report-button):hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+button:not(.report-button):active {
+    transform: translateY(0);
+}
+
+button:not(.report-button):disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary {
+    font-size: 1.1rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: var(--spacing-md) auto;
+    display: block;
+    max-width: 300px;
+}
+
+/* ====================================================================== */
+/* Affichage des résultats                                               */
+/* ====================================================================== */
+
+#result {
+    background-color: #fafafa;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    border-left: 4px solid var(--primary-color);
+}
+
+#result:empty {
+    display: none;
+}
+
+.result-container {
+    text-align: center;
+}
+
+.result-container p {
+    margin: var(--spacing-xs) 0;
+    font-size: 1.1rem;
+}
+
+.result-container p:first-child {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+/* ====================================================================== */
+/* Sections explicatives                                                  */
+/* ====================================================================== */
+
+#Explications {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    align-items: start;
+}
+
+#tutorial,
+#limitations {
+    background-color: #f8f7f4;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: transform var(--transition-speed);
+}
+
+#tutorial:hover,
+#limitations:hover {
+    transform: translateY(-2px);
+}
+
+#tutorial h3,
+#limitations h3 {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-color);
+    transition: font-size var(--transition-speed);
+}
+
+#limitations h3 {
+    color: #8b0000;
+}
+
+#tutorial ol {
+    padding-left: var(--spacing-md);
+}
+
+#tutorial li,
+#limitations li {
+    margin-bottom: var(--spacing-xs);
+}
+
+#limitations ul {
+    padding-left: var(--spacing-md);
+}
+
+/* ====================================================================== */
+/* Conteneurs dynamiques                                                 */
+/* ====================================================================== */
+
+#dynamic-form-section {
+    margin: var(--spacing-lg) 0;
+}
+
+#dynamicFormContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    margin: var(--spacing-sm);
+    padding: var(--spacing-sm);
+}
+
+/* Responsive grid pour les tuiles de matières */
+@media screen and (min-width: 600px) {
+    #dynamicFormContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+@media screen and (min-width: 900px) {
+    #dynamicFormContainer {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #dynamicFormContainer {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+.containerField {
+    background-color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid #eee;
+    transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0; /* Permet aux éléments de se rétrécir */
+}
+
+.containerField:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+.containerField label {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.05rem;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+/* ====================================================================== */
+/* Bouton de capture d'écran                                             */
+/* ====================================================================== */
+
+/* .screenshot-button {
+    position: fixed;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    background-color: var(--warning-color);
+    border-radius: 50px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-medium);
+    z-index: 1000;
+}
+
+.screenshot-button:hover {
+    background-color: #f57c00;
+} */
+
+/* ====================================================================== */
+/* Pied de page                                                          */
+/* ====================================================================== */
+
+/* Styles pour le footer uniformisé */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
+.nav-link {
+    color: #4caf50;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: rgba(76, 175, 80, 0.1);
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    display: inline-block; /* Cohérence avec report-button */
+    box-sizing: border-box; /* Assure un calcul cohérent des dimensions */
+    line-height: 1.4; /* Hauteur de ligne standardisée */
+    vertical-align: middle; /* Alignement vertical cohérent */
+}
+
+.nav-link:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+    text-decoration: none;
+}
+
+.report-button {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: rgba(255, 152, 0, 0.5); /* Orange avec transparence similaire aux nav-links */
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    cursor: pointer;
+    border: none; /* Supprime la bordure du bouton */
+    font-family: inherit; /* Hérite de la police du parent */
+    display: inline-block; /* Assure un comportement cohérent avec les nav-links */
+    box-sizing: border-box; /* Assure un calcul cohérent des dimensions */
+    line-height: 1.4; /* Même hauteur de ligne que les nav-links */
+    vertical-align: middle; /* Alignement vertical cohérent */
+}
+
+.report-button:hover {
+    background-color: rgba(245, 124, 0, 1); /* Orange plus foncé au survol */
+    text-decoration: none;
+}
+
+.credit {
+    font-size: 10px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .nav-link, .report-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* ====================================================================== */
+/* Responsive Design                                                     */
+/* ====================================================================== */
+
+@media screen and (max-width: 768px) {
+    .Main.Title {
+        font-size: 2rem;
+    }
+    
+    #Explications {
+        grid-template-columns: 1fr;
+    }
+    
+    main {
+        padding: var(--spacing-sm);
+    }
+    
+    .btn-primary {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .screenshot-button {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: 100%;
+        margin-top: var(--spacing-md);
+        border-radius: var(--border-radius);
+    }
+    
+    #dynamicFormContainer {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-sm);
+    }
+    
+    .containerField {
+        padding: var(--spacing-sm);
+        min-height: 100px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .Main.Title {
+        font-size: 1.8rem;
+    }
+    
+    header {
+        padding: var(--spacing-sm);
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    #tutorial h3,
+    #limitations h3 {
+        font-size: 1.1rem;
+    }
+    
+    #tutorial,
+    #limitations {
+        padding: var(--spacing-sm);
+    }
+    
+    .containerField {
+        min-height: 80px;
+        padding: var(--spacing-xs);
+    }
+    
+    .containerField label {
+        font-size: 0.95rem;
+    }
+}
+
+/* ====================================================================== */
+/* États d'accessibilité                                                 */
+/* ====================================================================== */
+
+/* Focus visible pour la navigation au clavier */
+button:not(.report-button):focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+select, input {
+    margin: var(--spacing-sm);
+}
+
+#calculateButton {
+    margin-top: 20px;
+}
+
+/* Amélioration du contraste pour les utilisateurs malvoyants */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000;
+        --text-color: #000;
+    }
+    
+    #tutorial,
+    #limitations {
+        border: 2px solid var(--text-color);
+    }
+}
+
+/* Respect des préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ====================================================================== */
+/* Utilitaires                                                           */
+/* ====================================================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-error {
+    color: var(--error-color);
+}
+
+.text-success {
+    color: var(--success-color);
+}
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* -------------------------------------------------------------------- */
+/* #################################################################### */
+/* -------------------------------------------------------------------- */
+
+/* Container for explanations */
+#Explications {
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+    border-radius: 5px;
+    background-color: None;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 110px - 40%;
+    min-width: 90px;
+    align-items: center; /* Vertically align items */
+}
+
+/* Tutorial section styles */
+#tutorial {
+    flex: 2; /* Takes up 2/3 of the space */
+    background-color: #F8F7F4;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#tutorial h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    transition: font-size 0.3s ease; 
+}
+
+#tutorial p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* Limitations section styles */
+#limitations {
+    flex: 1; /* Takes up 1/3 of the space */
+    background-color: #F8F7F4;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-left: 10px; /* Add margin between the two columns */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#limitations h3 {
+    font-size: 1.2em;
+    color: #8B0000;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    transition: font-size 0.3s ease; 
+}
+
+#limitations p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+#limitations:hover h3 {
+    font-size: 1.5em; /* Increase font size of h3 on hover */
+}
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+    #Explications {
+        flex-direction: column; /* Stack items vertically */
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #limitations {
+        margin-left: 0; /* Remove margin between the two columns */
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/* #################################################################### */
+/* -------------------------------------------------------------------- */
+
+/* Style pour les champs de saisie dans les tuiles */
+.containerField input[type="number"] {
+    width: 100%;
+    padding: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.containerField input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Amélioration des labels dans les tuiles */
+.containerField label {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* -------------------------------------------------------------------- */
+/* #################################################################### */
+/* -------------------------------------------------------------------- */
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+footer > * {
+    margin: 5px; /* Adjust as needed */
+}
+
+@media (max-width: 600px) {
+    footer {
+        flex-direction: column;
+    }
+}
+
+.credit {
+    font-size: 10px;
+}

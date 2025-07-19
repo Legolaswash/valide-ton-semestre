@@ -1,0 +1,140 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+textarea, input[type="file"] {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.screenshot-preview {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Container pour les boutons alignés */
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.modal-screenshot-button {
+    background-color: #4CAF50; /* Vert pour l'action de capture */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Prend toute la largeur disponible */
+    margin-bottom: 10px;
+}
+
+.modal-screenshot-button:hover {
+    background-color: #45a049; /* Vert plus foncé au survol */
+}
+
+.screenshot-button {
+    display: none;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background-color: #4CAF50; /* Cohérence avec le bouton modal */
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.screenshot-button:hover {
+    background-color: #45a049;
+}
+
+.reset {
+    background-color: #f44336; /* Rouge pour l'action de reset/suppression */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Prend la moitié de l'espace disponible */
+}
+
+.reset:hover {
+    background-color: #d32f2f; /* Rouge plus foncé au survol */
+}
+
+.submit {
+    background-color: #2196F3; /* Bleu pour l'action de soumission */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Prend la moitié de l'espace disponible */
+}
+
+.submit:hover {
+    background-color: #1976D2; /* Bleu plus foncé au survol */
+}
+
+#screenshotPreview {
+    max-width: 100%; /* Limit the maximum width of the screenshot to the size of the pop up*/
+    max-height: 400px; /* Limit the maximum height of the screenshot */
+    overflow: auto;
+    margin-bottom: 10px;
+}

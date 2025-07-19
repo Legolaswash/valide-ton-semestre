@@ -1,0 +1,59 @@
+# Configuration et données sensibles
+config/local_config.php
+.env
+.env.local
+.env.production
+
+# Fichiers temporaires et cache
+*.tmp
+*.log
+*.cache
+/cache/
+/tmp/
+
+# Fichiers IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dossiers de développement
+/tests/coverage/
+/vendor/
+node_modules/
+
+# Fichiers de sauvegarde
+*.bak
+*.backup
+*~
+
+# Données utilisateur et uploads
+/uploads/
+/user_data/
+
+# Archives et builds
+*.zip
+*.tar.gz
+*.rar
+/build/
+/dist/
+
+# Notebooks Jupyter
+*.ipynb_checkpoints/
+
+# Dossiers spécifiques au projet
+archives/
+data_work/
+NotReady/
+components/
+
+# Fichiers de notes de développement
+notes.txt
+TODO.md
+CHANGELOG.draft.md

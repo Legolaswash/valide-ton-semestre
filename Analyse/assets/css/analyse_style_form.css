@@ -1,0 +1,370 @@
+/**********************************************
+*                                             *
+*               STYLE PRINCIALE               *
+*                                             *
+**********************************************/
+
+/* Reset des styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: rgba(152,147,241,255);
+    margin: 0;
+    padding-bottom: 10px;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth; /* Activation du smooth scroll */
+    line-height: 1.6;
+}
+
+/* Style pour les titres */
+h1, h2 {
+    margin-bottom: 10px;
+    color: #2c3e50; /* Couleur du texte */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Police de caractères */
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Style pour les paragraphes */
+p {
+    margin-bottom: 15px;
+    color: #34495e; /* Couleur du texte */
+}
+
+footer {
+    background-color: #f2f2f2; /* Couleur de fond du footer */
+    padding: 20px 0; /* Espacement intérieur du footer */
+    text-align: center; /* Centrer le texte */
+    border-radius: 5px;
+    margin: 20px;
+}
+
+footer p {
+    margin: 0; /* Supprimer les marges autour du texte */
+    font-size: 14px; /* Taille de la police */
+    color: #666; /* Couleur du texte */
+}
+
+.container-header {
+    height: 100vh;
+    margin-bottom: 20px;
+    background-image: url('../images/header-analyse-forms.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.scroll-down {
+    color: #2e2e2e; 
+}
+
+.container-header .text {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.container-header .text h2, .container-header .text h1{
+    margin-bottom: 0px;
+}
+
+/* Barre de navigation */
+nav {
+    background-color: #333;
+    text-align: center;
+    padding: 10px 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+/**********************************************
+*                                             *
+*                                             *
+*                                             *
+**********************************************/
+
+/* Style pour le conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-header {
+    text-align: center;
+}
+
+#container-header {
+    max-width: 650px;
+    margin: auto; /* Aligne le contenu au centre horizontalement */
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center; /* Aligne le texte au centre */
+}
+
+/**********************************************
+*                                             *
+*         STYLE COMPARAISON SEMESTRE          *
+*                                             *
+**********************************************/
+
+form {
+    display: flex;
+    justify-content: center;
+}
+/* Style pour la boîte d'ensemble */
+.comparison-container {
+    width: 800px; /* Limite la taille de la boîte */
+    margin: 50px auto; /* Centre la boîte verticalement et horizontalement */
+    background-color: #f9f9f9; /* Couleur de fond */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 20px; /* Espacement intérieur */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre */
+    margin-top: 25px;
+}
+
+/* Style pour les sélecteurs */
+.select-container-comparison {
+    margin-bottom: 20px; /* Marge inférieure */
+}
+
+.select-container-comparison label {
+    display: block; /* Affichage en bloc pour chaque label */
+    margin-bottom: 5px; /* Marge inférieure */
+    font-weight: bold; /* Texte en gras */
+}
+
+.select-container-comparison select {
+    width: calc(100% - 20px); /* Largeur maximale */
+    padding: 8px; /* Espacement interne */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 4px; /* Coins arrondis */
+}
+
+/* Style pour la boîte de résultats */
+.comparison-box {
+    padding: 20px; /* Espacement intérieur */
+    margin-top: 0px; /* Marge au-dessus de la boîte de résultats */
+    text-align: center; /* Centre le contenu */
+}
+
+/* Style pour les résultats de la comparaison */
+.comparison-result h3 {
+    color: #333; /* Couleur du titre */
+}
+
+.comparison-result p {
+    margin-bottom: 10px; /* Marge inférieure entre les paragraphes */
+}
+
+/* CSS pour les résultats les plus élevés et les plus bas */
+.higher-result {
+    color: green; /* Couleur verte pour le résultat le plus élevé */
+    font-weight: bold; /* Texte en gras */
+}
+
+.lower-result {
+    color: red; /* Couleur rouge pour le résultat le plus bas */
+    font-weight: bold; /* Texte en gras */
+}
+
+/**********************************************
+*                                             *
+*            STYLE STATS MATIERES             *
+*                                             *
+**********************************************/
+
+.container-analysis {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-analysis h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.select-container-analysis {
+    margin-bottom: 20px;
+}
+
+.select-container-analysis select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.analysis-result {
+    margin-top: 20px;
+}
+
+.analysis-result ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.analysis-result li {
+    margin-bottom: 5px;
+}
+
+/* Couleur rouge pour les moyennes de 0 à 10 */
+.red {
+    background-color: #FFCDD2; /* Utilisez la couleur de votre choix */
+}
+
+/* Couleur orange pour les moyennes de 10 à 15 */
+.orange {
+    background-color: #FFE0B2; /* Utilisez la couleur de votre choix */
+}
+
+/* Couleur verte pour les moyennes de 15 à 20 */
+.green {
+    background-color: #C8E6C9; /* Utilisez la couleur de votre choix */
+}
+
+/**********************************************
+*                                             *
+*        STYLE STATS PAR SEMESTRE/UEs         *
+*                                             *
+**********************************************/
+
+/* Style pour les sélecteurs */
+label {
+    margin-right: 10px;
+    color: #2c3e50; /* Couleur du texte */
+}
+
+select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.stats-containers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrer les containers horizontalement */
+    align-items: center; /* Centrer les containers verticalement */
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #2c3e50;
+    max-width: 800px; /* Limiter la largeur maximale des containers */
+    margin: auto; /* Centrer les containers horizontalement */
+}
+
+.container {
+    flex: 1 1 40%;
+    margin-bottom: 0px;
+    margin: 10px;
+}
+
+/* Style pour les sélecteurs */
+.select-container {
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+}
+
+.container-1, .container-2 {
+    background-color: #BFD8FF;
+    margin-bottom: 20px;
+    height: 190px;
+}
+
+#successrate {
+    margin-left: 10px;
+}
+
+.container label {
+    font-weight: bold;
+}
+
+#statistics {
+    margin-top: 15px;
+}
+
+.statistic p {
+    margin-bottom: 0px;
+}
+
+.statistic {
+    margin-top: 15px;
+}
+
+/**********************************************
+*                                             *
+*               STYLE TABLEAUX                *
+*                                             *
+**********************************************/
+
+/* Style pour les tableaux */
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: separate; /* Séparer les bordures de chaque cellule */
+    border-spacing: 0; /* Aucun espace entre les cellules */
+    background-color: #fff; /* Couleur de fond par défaut */
+}
+
+.table {
+    margin-bottom: 20px; /* Marge en bas des tableaux */
+}
+
+.table-container {
+/*     border-radius: 5px; */
+    flex: 1 1 50%; /* Les tableaux occuperont 100% de l'espace disponible */
+    margin-top: 20px; /* Marge en haut des tableaux */
+    padding: 10px
+}
+
+table, th, td {
+    border: 1px solid #0C3E6E;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    transition: background-color 0.3s ease; /* Transition fluide pour l'effet de survol */
+}
+
+/* Effet de survol sur chaque case du tableau */
+td:hover {
+    background-color: #aaaaaa; /* Couleur de fond au survol */
+}
+
+th {
+    background-color: #BFD8FF;
+    color: #2c3e50; /* Couleur du texte */
+}

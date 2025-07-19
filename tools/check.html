@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Fonctionnement - Valide ton Semestre</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .test-card { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin: 10px 0; 
+            background: #f9f9f9;
+        }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        .warning { border-color: #ffc107; background: #fff3cd; }
+        .info { border-color: #17a2b8; background: #d1ecf1; }
+        button { 
+            padding: 10px 15px; 
+            margin: 5px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .test-item { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-left: 4px solid #007bff; 
+            background: #f8f9fa;
+        }
+        .test-item.success { border-color: #28a745; }
+        .test-item.error { border-color: #dc3545; }
+        .test-item.warning { border-color: #ffc107; }
+        .module-details { 
+            font-size: 0.9em; 
+            color: #666; 
+            margin-top: 5px;
+        }
+        .test-progress {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .test-progress-bar {
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Test de Fonctionnement - Valide ton Semestre</h1>
+    
+    <div class="grid">
+
+        <div class="test-card info">
+            <h3>🌐 Test APIs</h3>
+            <button onclick="testAPIs()">Tester les APIs</button>
+            <div id="apiResult"></div>
+        </div>
+
+        <div class="test-card info">
+            <h3>📚 Test JavaScript Modules</h3>
+            <button onclick="testJavaScriptModules()" id="jsTestBtn">Tester JS Modules</button>
+            <div class="test-progress" style="display: none;" id="jsProgress">
+                <div class="test-progress-bar" id="jsProgressBar"></div>
+            </div>
+            <div id="jsResult"></div>
+        </div>
+        
+        <div class="test-card info">
+            <h3>🗄️ Test Base de Données</h3>
+            <button onclick="testDatabase()">Tester la BDD</button>
+            <div id="dbResult"></div>
+        </div>
+
+        <div class="test-card info">
+            <h3>🎯 Test Complet</h3>
+            <button onclick="runAllTests()">Tous les Tests</button>
+            <div id="allResult"></div>
+        </div>
+    </div>
+    
+    <!-- <div class="test-card">
+        <h3>🚀 Navigation</h3>
+        <button onclick="location.href='setup.php'">📋 Setup System</button>
+        <button onclick="location.href='test_api.php'">🔗 Test APIs Détaillé</button>
+        <button onclick="location.href='../index.php'">🎓 Application Principale</button>
+        <button onclick="location.href='../Analyse/Presentation.html'">📊 Analyse des Données</button>
+    </div> -->
+
+    <!-- Chargement des modules JavaScript à tester -->
+    <script src="../assets/js/menu-manager.js"></script>
+    <script src="../assets/js/grade-calculator.js"></script>
+    <script src="../assets/js/app-initializer.js"></script>
+
+    <script>
+        // Configuration des tests
+        const TEST_CONFIG = {
+            timeout: 5000,
+            retries: 3,
+            apiBaseUrl: '../api/'
+        };
+
+        // Utilitaires de test
+        function createTestItem(title, status, details = '', className = '') {
+            return `
+                <div class="test-item ${className}">
+                    <strong>${title}</strong>: ${status}
+                    ${details ? `<div class="module-details">${details}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function updateProgress(current, total, elementId) {
+            const progressBar = document.getElementById(elementId);
+            const percentage = (current / total) * 100;
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        async function testDatabase() {
+            const resultDiv = document.getElementById('dbResult');
+            resultDiv.innerHTML = '<p>⏳ Test en cours...</p>';
+            
+            try {
+                const response = await fetch('test_api.php');
+                const text = await response.text();
+                
+                if (text.includes('✅ Connexion à la base de données réussie')) {
+                    resultDiv.innerHTML = createTestItem('Base de données', '✅ Connexion OK', '', 'success');
+                } else {
+                    resultDiv.innerHTML = createTestItem('Base de données', '❌ Problème de connexion', text, 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = createTestItem('Base de données', '❌ Erreur réseau', error.message, 'error');
+            }
+        }
+        
+        async function testAPIs() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = '<p>⏳ Test des APIs en cours...</p>';
+            
+            const apis = [
+                { name: 'UE Options', endpoint: 'get_ue_options.php?semester=S1' },
+                { name: 'Fields & Weights', endpoint: 'get_fields_and_weights.php?semester=S1&ue=UE1' },
+                { name: 'Insert Result', endpoint: 'insert_result.php', method: 'POST' },
+                { name: 'Insert Field', endpoint: 'insert_field.php', method: 'POST' }
+            ];
+
+            let results = [];
+            
+            for (const api of apis) {
+                try {
+                    let response;
+                    if (api.method === 'POST') {
+                        // Test simple de disponibilité pour les endpoints POST
+                        response = await fetch(TEST_CONFIG.apiBaseUrl + api.endpoint);
+                        const status = response.status === 405 ? 'Disponible (POST requis)' : 'Erreur';
+                        results.push(createTestItem(api.name, status === 'Disponible (POST requis)' ? '✅' : '❌', status, 
+                                                  status === 'Disponible (POST requis)' ? 'success' : 'error'));
+                    } else {
+                        response = await fetch(TEST_CONFIG.apiBaseUrl + api.endpoint);
+                        const data = await response.json();
+                        results.push(createTestItem(api.name, '✅ Fonctionnelle', `Réponse: ${typeof data}`, 'success'));
+                    }
+                } catch (error) {
+                    results.push(createTestItem(api.name, '❌ Erreur', error.message, 'error'));
+                }
+            }
+            
+            resultDiv.innerHTML = results.join('');
+        }
+        
+        async function testJavaScriptModules() {
+            const resultDiv = document.getElementById('jsResult');
+            const progressDiv = document.getElementById('jsProgress');
+            const testBtn = document.getElementById('jsTestBtn');
+            
+            testBtn.disabled = true;
+            progressDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p>⏳ Test des modules JavaScript en cours...</p>';
+            
+            const tests = [
+                {
+                    name: 'DynamicMenuManager',
+                    test: () => testDynamicMenuManager()
+                },
+                {
+                    name: 'GradeCalculator', 
+                    test: () => testGradeCalculator()
+                },
+                {
+                    name: 'Integration Tests',
+                    test: () => testModuleIntegration()
+                }
+            ];
+
+            let results = [];
+            let currentTest = 0;
+
+            for (const test of tests) {
+                updateProgress(currentTest, tests.length, 'jsProgressBar');
+                
+                try {
+                    const result = await test.test();
+                    results.push(result);
+                } catch (error) {
+                    results.push(createTestItem(test.name, '❌ Exception', error.message, 'error'));
+                }
+                
+                currentTest++;
+                await new Promise(resolve => setTimeout(resolve, 100)); // Petite pause
+            }
+            
+            updateProgress(tests.length, tests.length, 'jsProgressBar');
+            setTimeout(() => {
+                progressDiv.style.display = 'none';
+                testBtn.disabled = false;
+            }, 500);
+            
+            resultDiv.innerHTML = results.join('');
+        }
+
+        function testDynamicMenuManager() {
+            // Test 1: Vérifier si la classe existe
+            if (typeof DynamicMenuManager === 'undefined') {
+                return createTestItem('DynamicMenuManager', '❌ Classe non trouvée', 'Le module menu-manager.js n\'est pas chargé', 'error');
+            }
+
+            // Test 2: Créer une instance
+            try {
+                const menuManager = new DynamicMenuManager();
+                
+                // Test 3: Vérifier les propriétés essentielles
+                const hasProperties = ['currentSemester', 'currentUe', 'isLoading'].every(prop => 
+                    menuManager.hasOwnProperty(prop)
+                );
+                
+                if (!hasProperties) {
+                    return createTestItem('DynamicMenuManager', '⚠️ Propriétés manquantes', 'Certaines propriétés essentielles sont absentes', 'warning');
+                }
+
+                // Test 4: Vérifier les méthodes essentielles
+                const methods = ['handleSemesterChange', 'handleUeChange', 'loadUeOptions', 'generateDynamicForm'];
+                const hasMethods = methods.every(method => typeof menuManager[method] === 'function');
+                
+                if (!hasMethods) {
+                    return createTestItem('DynamicMenuManager', '⚠️ Méthodes manquantes', `Méthodes manquantes: ${methods.filter(m => typeof menuManager[m] !== 'function').join(', ')}`, 'warning');
+                }
+
+                return createTestItem('DynamicMenuManager', '✅ Module OK', `Instance créée avec succès. Méthodes: ${methods.length}`, 'success');
+                
+            } catch (error) {
+                return createTestItem('DynamicMenuManager', '❌ Erreur d\'instanciation', error.message, 'error');
+            }
+        }
+
+        function testGradeCalculator() {
+            // Test 1: Vérifier si la classe existe
+            if (typeof GradeCalculator === 'undefined') {
+                return createTestItem('GradeCalculator', '❌ Classe non trouvée', 'Le module grade-calculator.js n\'est pas chargé', 'error');
+            }
+
+            // Test 2: Créer une instance
+            try {
+                const gradeCalculator = new GradeCalculator();
+                
+                // Test 3: Vérifier les propriétés essentielles
+                const hasProperties = ['gradeInputs', 'weightInputs', 'fieldNames', 'isCalculationInProgress'].every(prop => 
+                    gradeCalculator.hasOwnProperty(prop)
+                );
+                
+                if (!hasProperties) {
+                    return createTestItem('GradeCalculator', '⚠️ Propriétés manquantes', 'Certaines propriétés essentielles sont absentes', 'warning');
+                }
+
+                // Test 4: Vérifier les méthodes essentielles
+                const methods = ['handleGoalScroll', 'gatherUserInputs', 'validateInputs', 'processGradeData', 'computeMinimumGrade'];
+                const hasMethods = methods.every(method => typeof gradeCalculator[method] === 'function');
+                
+                if (!hasMethods) {
+                    const missingMethods = methods.filter(m => typeof gradeCalculator[m] !== 'function');
+                    return createTestItem('GradeCalculator', '⚠️ Méthodes manquantes', `Méthodes manquantes: ${missingMethods.join(', ')}`, 'warning');
+                }
+
+                // Test 5: Test de la méthode handleGoalScroll
+                const mockEvent = {
+                    preventDefault: () => {},
+                    deltaY: 10,
+                    target: { value: '10', min: '0', max: '20' }
+                };
+                
+                try {
+                    gradeCalculator.handleGoalScroll(mockEvent);
+                    return createTestItem('GradeCalculator', '✅ Module OK', `Instance créée avec succès. Méthodes testées: ${methods.length}`, 'success');
+                } catch (scrollError) {
+                    return createTestItem('GradeCalculator', '⚠️ Erreur handleGoalScroll', scrollError.message, 'warning');
+                }
+                
+            } catch (error) {
+                return createTestItem('GradeCalculator', '❌ Erreur d\'instanciation', error.message, 'error');
+            }
+        }
+
+        function testModuleIntegration() {
+            let integrationTests = [];
+            
+            // Test 1: Vérifier les fonctions de compatibilité
+            const compatibilityFunctions = ['changeUEFields', 'loadFields', 'calculateMinimumGrade', 'handleGoalScroll'];
+            compatibilityFunctions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    integrationTests.push(`✅ ${funcName}`);
+                } else {
+                    integrationTests.push(`❌ ${funcName} manquante`);
+                }
+            });
+
+            // Test 2: Vérifier la communication entre modules
+            let communicationOK = false;
+            if (window.app && window.app.menuManager && window.app.gradeCalculator) {
+                communicationOK = true;
+            }
+
+            const status = communicationOK ? '✅' : '⚠️';
+            const details = integrationTests.join('<br>') + '<br>Communication inter-modules: ' + (communicationOK ? 'OK' : 'Limitée');
+            
+            return createTestItem('Intégration Modules', status + ' Tests d\'intégration', details, communicationOK ? 'success' : 'warning');
+        }
+        
+        async function runAllTests() {
+            const allResultDiv = document.getElementById('allResult');
+            allResultDiv.innerHTML = '<p>⏳ Exécution de tous les tests...</p>';
+            
+            const testFunctions = [
+                { name: 'Base de données', func: testDatabase },
+                { name: 'APIs', func: testAPIs },
+                { name: 'JavaScript', func: testJavaScriptModules }
+            ];
+
+            for (const test of testFunctions) {
+                try {
+                    await test.func();
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Pause entre les tests
+                } catch (error) {
+                    console.error(`Erreur lors du test ${test.name}:`, error);
+                }
+            }
+            
+            allResultDiv.innerHTML = createTestItem('Tests complets', '✅ Terminés', 'Vérifiez les résultats dans chaque section ci-dessus', 'success');
+        }
+
+        // Auto-test au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔧 Page de test chargée - Modules disponibles:', {
+                DynamicMenuManager: typeof DynamicMenuManager !== 'undefined',
+                GradeCalculator: typeof GradeCalculator !== 'undefined'
+            });
+        });
+    </script>
+
+    <!-- Styles pour le footer uniformisé -->
+    <style>
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .nav-link {
+            color: #4caf50;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: rgba(76, 175, 80, 0.1);
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(76, 175, 80, 0.2);
+            text-decoration: none;
+        }
+        
+        .report-button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .report-button:hover {
+            background-color: #f57c00;
+        }
+        
+        .credit {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .nav-link, .report-button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+
+        <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <span>Copyright &copy; Legolas <script>document.write(new Date().getFullYear())</script></span>
+            <a href="../Analyse/Analyse_datavise.php" class="nav-link">📈 Datavisualisation</a>
+            <a href="../Analyse/Analyse_forms.php" class="nav-link">📊 Analyse dynamique</a>
+            <a href="../Valide_ton_Semestre.php" class="nav-link">🧮 Calculateur de notes</a>
+
+            <a href="setup.php" class="nav-link">🛠️ Configuration</a>
+            <a href="test_api.php" class="nav-link">🛠️ Tests API</a>
+        </div>
+    </footer>
+
+</body>
+</html>
